@@ -32,5 +32,10 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["CloudMazing\\FilamentS3MultipartUpload\\FilamentS3MultipartUploadServiceProvider"]
+        }
     }
 }
