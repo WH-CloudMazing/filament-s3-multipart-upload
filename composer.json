@@ -7,6 +7,11 @@
             "CloudMazing\\FilamentS3MultipartUpload\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Jaggy",
@@ -15,11 +20,17 @@
     ],
     "require-dev": {
         "orchestra/testbench": "^7.22",
-        "laravel/pint": "^1.4"
+        "laravel/pint": "^1.4",
+        "pestphp/pest": "^1.22"
     },
     "require": {
         "filament/filament": "^2.0",
         "spatie/laravel-package-tools": "^1.14",
         "league/flysystem-aws-s3-v3": "^3.12"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
