@@ -1,0 +1,17 @@
+{
+    "name": "cloudmazing/filament-s3-multipart-upload",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cloudmazing\\FilamentS3MultipartUpload\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jaggy",
+            "email": "jaggy@hey.com"
+        }
+    ],
+    "require": {}
+}
