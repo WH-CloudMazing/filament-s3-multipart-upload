@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Cloudmazing\\FilamentS3MultipartUpload\\": "src/"
+            "CloudMazing\\FilamentS3MultipartUpload\\": "src/"
         }
     },
     "authors": [
@@ -13,5 +13,13 @@
             "email": "jaggy@hey.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "orchestra/testbench": "^7.22",
+        "laravel/pint": "^1.4"
+    },
+    "require": {
+        "filament/filament": "^2.0",
+        "spatie/laravel-package-tools": "^1.14",
+        "league/flysystem-aws-s3-v3": "^3.12"
+    }
 }
