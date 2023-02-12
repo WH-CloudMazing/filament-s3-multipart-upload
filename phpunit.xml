@@ -12,5 +12,8 @@
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
+        <testsuite name="External">
+            <directory>tests/External</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
