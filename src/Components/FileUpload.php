@@ -10,6 +10,8 @@ class FileUpload extends Field
 {
     protected string $view = 'filament-s3-multipart-upload::components.file-upload';
 
+    protected int $maxFileSize = 5 * 1024 * 1024; // 5GB
+
     public function hasAwsConfigured(): bool
     {
         return config('filesystems.disks.s3.bucket')
@@ -21,5 +23,17 @@ class FileUpload extends Field
     public function companionUrl(): string
     {
         return '/'.config('filament-s3-multipart-upload.prefix');
+    }
+
+    public function getMaxFileSize(): int
+    {
+        return $this->maxFileSize;
+    }
+
+    public function maxFileSize(int $bytes): self
+    {
+        $this->maxFileSize = $bytes;
+
+        return $this;
     }
 }

@@ -24,7 +24,7 @@
                     debug: true,
                     restrictions: {
                         maxNumberOfFiles: 1,
-                        maxFileSize: 500000000,
+                        maxFileSize: {{ $getMaxFileSize() }},
                         minNumberOfFiles: 1
                     },
                 })
