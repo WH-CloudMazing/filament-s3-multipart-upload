@@ -10,9 +10,15 @@ class FileUpload extends Field
 {
     protected string $view = 'filament-s3-multipart-upload::components.file-upload';
 
-    public string $property = 'hello';
+    public function hasAwsConfigured(): bool
+    {
+        return config('filesystems.disks.s3.bucket')
+            && config('filesystems.disks.s3.key')
+            && config('filesystems.disks.s3.region')
+            && config('filesystems.disks.s3.secret');
+    }
 
-    public function companionUrl()
+    public function companionUrl(): string
     {
         return '/'.config('filament-s3-multipart-upload.prefix');
     }
