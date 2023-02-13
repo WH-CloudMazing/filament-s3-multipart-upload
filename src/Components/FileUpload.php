@@ -12,6 +12,10 @@ class FileUpload extends Field
 
     protected int $maxFileSize = 5 * 1024 * 1024; // 5GB
 
+    protected int $maxNumberOfFiles = 10;
+
+    protected bool $multiple = false;
+
     public function hasAwsConfigured(): bool
     {
         return config('filesystems.disks.s3.bucket')
@@ -35,5 +39,34 @@ class FileUpload extends Field
         $this->maxFileSize = $bytes;
 
         return $this;
+    }
+
+    public function multiple(): self
+    {
+        $this->multiple = true;
+
+        return $this;
+    }
+
+    public function getMultiple(): bool
+    {
+        return $this->multiple;
+    }
+
+
+    public function maxNumberOfFiles(int $maxNumberOfFiles): self
+    {
+        $this->maxNumberOfFiles = $maxNumberOfFiles;
+
+        return $this;
+    }
+
+    public function getMaxNumberOfFiles(): int
+    {
+        if (! $this->multiple) {
+            return 1;
+        }
+
+        return $this->maxNumberOfFiles;
     }
 }

@@ -51,7 +51,7 @@
                     id: 'uppy',
                     debug: true,
                     restrictions: {
-                        maxNumberOfFiles: 1,
+                        maxNumberOfFiles: {{ $getMaxNumberOfFiles() }},
                         maxFileSize: {{ $getMaxFileSize() }},
                         minNumberOfFiles: 1
                     },
