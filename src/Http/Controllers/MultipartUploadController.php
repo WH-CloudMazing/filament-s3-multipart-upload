@@ -21,9 +21,8 @@ class MultipartUploadController
         ]);
 
         return response()->json([
-            'upload_id' => $response->get('UploadId'),
+            'uploadId' => $response->get('UploadId'),
             'key' => $response->get('Key'),
-            'bucket' => $response->get('Bucket'),
         ]);
     }
 }

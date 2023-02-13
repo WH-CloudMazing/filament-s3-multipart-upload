@@ -24,8 +24,7 @@ it("creates a multipart upload id", function () {
 
     createMultipartUpload([
     ])->assertJson(fn (AssertableJson $json) => $json
-        ->where('upload_id', 'some-upload-id')
-        ->where('bucket', 'some-bucket-name')
+        ->where('uploadId', 'some-upload-id')
         ->where('key', 'some-key-name')
         ->etc()
     );
