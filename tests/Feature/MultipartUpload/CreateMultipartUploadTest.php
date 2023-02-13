@@ -6,7 +6,6 @@ use Aws\Result;
 use Aws\S3\S3Client;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadController;
 use Mockery;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 it("creates a multipart upload id", function () {
