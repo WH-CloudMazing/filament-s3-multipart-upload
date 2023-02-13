@@ -9,7 +9,7 @@
 
     <div class="uppy__files mt-2">
         <template x-for="file in uploadedFiles" :key="file.id">
-            <div class="uppy__file file" class="p-4 text-sm bg-white">
+            <div class="uppy__file file py-2 px-4 text-sm bg-white">
                 <div>
                     <span class="file__name font-bold text-sm" x-text="file.name"></span>
                 </div>
