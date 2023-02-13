@@ -13,12 +13,18 @@ class MultipartUploadController
     {
     }
 
+    /**
+     * filename
+     * type
+     * metadata.name
+     * metadata.type
+     */
     public function store(Request $request)
     {
         $response = $this->s3->createMultipartUpload([
             'Bucket' => config('filesystems.disks.s3.bucket'),
-            'Key' => 'some-key',
-            'ContentType' => 'some-content-type',
+            'Key' => urlencode($request->input('filename')),
+            'ContentType' => $request->input('metadata.type'),
             'ContentDisposition' => 'inline',
         ]);
 
