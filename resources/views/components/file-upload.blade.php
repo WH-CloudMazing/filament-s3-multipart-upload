@@ -24,7 +24,7 @@
             .use(DragDrop, { target: '.input--uppy' })
             .use(AwsS3Multipart, {
                 limit: 1,
-                companionUrl: '/filament/multipart-upload',
+                companionUrl: "{{ $companionUrl() }}",
                 companionHeaders: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}",
                 },
