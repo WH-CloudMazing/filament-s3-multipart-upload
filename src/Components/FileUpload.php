@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CloudMazing\FilamentS3MultipartUpload\Components;
 
 use Filament\Forms\Components\Field;

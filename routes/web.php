@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadCompletionController;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadController;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\TemporarySignedUrlController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 Route::prefix(config('filament-s3-multipart-upload.prefix').'/s3')->name('filament.')->group(function () {
     Route::post('multipart', [MultipartUploadController::class, 'store'])->name('multipart-upload.store');

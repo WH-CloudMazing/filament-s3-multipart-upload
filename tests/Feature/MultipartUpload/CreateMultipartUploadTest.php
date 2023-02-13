@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\MultipartUpload;
 
 use Aws\Result;
 use Aws\S3\S3Client;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadController;
-use Mockery;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Mockery;
 
-it("creates a multipart upload id", function () {
+it('creates a multipart upload id', function () {
     $result = Mockery::mock(Result::class);
     $result->shouldReceive('get')->with('UploadId')->andReturn('some-upload-id');
     $result->shouldReceive('get')->with('Bucket')->andReturn('some-bucket-name');

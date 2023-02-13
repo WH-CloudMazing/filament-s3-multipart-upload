@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CloudMazing\FilamentS3MultipartUpload\Http\Controllers;
 
 use Aws\S3\S3Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class MultipartUploadCompletionController
 {
@@ -15,9 +16,9 @@ class MultipartUploadCompletionController
     public function store(Request $request, string $uploadId)
     {
         $result = $this->s3->completeMultipartUpload([
-            'Bucket'          => config('filesystems.disks.s3.bucket'),
-            'Key'             => $request->query('key'),
-            'UploadId'        => $uploadId,
+            'Bucket' => config('filesystems.disks.s3.bucket'),
+            'Key' => $request->query('key'),
+            'UploadId' => $uploadId,
             'MultipartUpload' => ['Parts' => $request->input('parts')],
         ]);
 

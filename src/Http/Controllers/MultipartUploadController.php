@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CloudMazing\FilamentS3MultipartUpload\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Aws\S3\S3Client;
+use Illuminate\Http\Request;
 
 class MultipartUploadController
 {
@@ -14,9 +16,9 @@ class MultipartUploadController
     public function store(Request $request)
     {
         $response = $this->s3->createMultipartUpload([
-            'Bucket'             => config('filesystems.disks.s3.bucket'),
-            'Key'                => 'some-key',
-            'ContentType'        => 'some-content-type',
+            'Bucket' => config('filesystems.disks.s3.bucket'),
+            'Key' => 'some-key',
+            'ContentType' => 'some-content-type',
             'ContentDisposition' => 'inline',
         ]);
 

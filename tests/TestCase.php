@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use CloudMazing\FilamentS3MultipartUpload\FilamentS3MultipartUploadServiceProvider;

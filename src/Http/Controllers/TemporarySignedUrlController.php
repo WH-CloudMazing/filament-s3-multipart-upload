@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CloudMazing\FilamentS3MultipartUpload\Http\Controllers;
 
 use Aws\S3\S3Client;
@@ -14,11 +16,11 @@ class TemporarySignedUrlController
     public function show(Request $request, string $uploadId, int $index)
     {
         $command = $this->s3->getCommand('uploadPart', [
-            'Bucket'     => config('filesystems.disks.s3.bucket'),
-            'Key'        => $request->query('key'),
-            'UploadId'   => $uploadId,
+            'Bucket' => config('filesystems.disks.s3.bucket'),
+            'Key' => $request->query('key'),
+            'UploadId' => $uploadId,
             'PartNumber' => $index,
-            'Body'       => '',
+            'Body' => '',
         ]);
 
         $url = (string) $this->s3->createPresignedRequest(

@@ -1,4 +1,5 @@
 <?php
 
-namespace Tests\Feature;
+declare(strict_types=1);
 
+namespace Tests\Feature;
