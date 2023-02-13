@@ -7,7 +7,7 @@ use Aws\S3\S3Client;
 
 class MultipartUploadController
 {
-    public function __construct(private S3Client $s3)
+    public function __construct(private s3client $s3)
     {
     }
 

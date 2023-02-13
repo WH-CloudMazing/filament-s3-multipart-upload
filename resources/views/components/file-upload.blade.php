@@ -23,7 +23,7 @@
         uppy
             .use(DragDrop, { target: '.input--uppy' })
             .use(AwsS3Multipart, {
-                limit: 1,
+                limit: 6,
                 companionUrl: "{{ $companionUrl() }}",
                 companionHeaders: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}",

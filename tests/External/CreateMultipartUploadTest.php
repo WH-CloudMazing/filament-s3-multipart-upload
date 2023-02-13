@@ -5,7 +5,10 @@ namespace Tests\External;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 it("creates a multipart upload id", function () {
-    createMultipartUpload([])->dd();
+    createMultipartUpload([])->assertJson(fn (AssertableJson $json) => $json
+        ->has('uploadId')
+        ->has('key')
+    );
 });
 
 function createMultipartUpload(array $attributes)
