@@ -15,6 +15,8 @@ class FilamentS3MultipartUploadServiceProvider extends PluginServiceProvider
         $package
             ->name('filament-s3-multipart-upload')
             ->hasConfigFile()
+            ->hasViews()
+            ->hasAssets()
             ->hasRoutes('web');
     }
 
