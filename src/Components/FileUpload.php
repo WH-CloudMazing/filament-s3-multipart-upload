@@ -10,7 +10,7 @@ class FileUpload extends Field
 {
     protected string $view = 'filament-s3-multipart-upload::components.file-upload';
 
-    protected int $maxFileSize = 5 * 1024 * 1024; // 5GB
+    protected int $maxFileSize = 5 * 1024 * 1024 * 1024; // 5GB
 
     protected int $maxNumberOfFiles = 10;
 

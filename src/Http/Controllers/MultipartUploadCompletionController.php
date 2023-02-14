@@ -23,7 +23,7 @@ class MultipartUploadCompletionController
         ]);
 
         return response()->json([
-            'path' => urldecode($result->get('Key')),
+            'path' => $result->get('Key'),
             'url'  => $result->get('Location'),
         ]);
     }
