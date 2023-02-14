@@ -35,6 +35,7 @@
                     minNumberOfFiles: 1
                 },
             })
+
             this.uppy
                 .use(DragDrop, {
                     target: '.uppy__input',
@@ -49,29 +50,14 @@
                         'X-CSRF-TOKEN': "{{ csrf_token() }}",
                     },
                 })
+
             this.uppy.on("file-added", file => {
                 uppy.upload()
-                console.log("----- on file added -----");
             });
-            this.uppy.on("file-removed", file => {
-                console.log("----- on file removed -----");
-            });
-            this.uppy.on("upload", file => {
-                console.log("----- on upload -----");
-            });
-            this.uppy.on("upload-progress", file => {
-                console.log("----- on file added -----");
-            });
+
             this.uppy.on("upload-success", (file, response) => {
                 this.state = response.body.location
                 this.uploadedFiles = [...this.uploadedFiles, file]
-                console.log("----- on upload success -----");
-            });
-            this.uppy.on("error", (file, error, response) => {
-                console.log("----- on error -----");
-            });
-            this.uppy.on("upload-error", err => {
-                console.log("----- on upload error -----");
             });
         },
     })
