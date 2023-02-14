@@ -53,7 +53,6 @@ class FileUpload extends Field
         return $this->multiple;
     }
 
-
     public function maxNumberOfFiles(int $maxNumberOfFiles): self
     {
         $this->maxNumberOfFiles = $maxNumberOfFiles;

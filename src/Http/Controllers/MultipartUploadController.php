@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class MultipartUploadController
 {
-    public function __construct(private s3client $s3)
+    public function __construct(private S3client $s3)
     {
     }
 

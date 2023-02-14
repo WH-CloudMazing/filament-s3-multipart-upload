@@ -23,10 +23,9 @@ class TemporarySignedUrlController
             'Body' => '',
         ]);
 
-        $url = (string) $this->s3->createPresignedRequest(
-            $command,
-            '+1 hour',
-        )->getUri();
+        $url = (string) $this->s3
+            ->createPresignedRequest($command, '+1 hour')
+            ->getUri();
 
         return [
             'url' => $url,
