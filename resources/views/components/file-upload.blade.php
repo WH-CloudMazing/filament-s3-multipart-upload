@@ -1,5 +1,10 @@
 <div x-data="uppy" class="uppy">
-    <input type="hidden" name="{{ $getName() }}" x-model="path">
+    <input
+        type="hidden"
+        name="{{ $getName() }}"
+        x-model="state"
+        {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
+    >
 
     <div class="uppy__input">
     </div>
@@ -35,7 +40,7 @@
     document.addEventListener('alpine:init', () => {
         Alpine.data('uppy', () => ({
             uppy: null,
-            path: '',
+            state: null,
             uploadedFiles: [],
 
             bytesToSize (bytes) {
@@ -47,6 +52,8 @@
             },
 
             init () {
+                this.state = this.$wire.entangle('{{ $getStatePath() }}')
+
                 this.uppy = new Uppy({
                     id: 'uppy',
                     debug: true,
@@ -57,7 +64,7 @@
                     },
                 })
 
-                uppy
+                this.uppy
                     .use(DragDrop, {
                         target: '.uppy__input',
                     })
@@ -72,36 +79,36 @@
                         },
                     })
 
-                uppy.on("file-added", file => {
+                this.uppy.on("file-added", file => {
                     uppy.upload()
                     console.log("----- on file added -----");
                 });
 
-                uppy.on("file-removed", file => {
+                this.uppy.on("file-removed", file => {
                     console.log("----- on file removed -----");
                 });
 
-                uppy.on("upload", file => {
+                this.uppy.on("upload", file => {
                     console.log("----- on upload -----");
                 });
 
-                uppy.on("upload-progress", file => {
+                this.uppy.on("upload-progress", file => {
                     console.log("----- on file added -----");
                 });
 
-                uppy.on("upload-success", (file, response) => {
-                    console.error(file)
-                    this.path = response.body.location
+                this.uppy.on("upload-success", (file, response) => {
+                    this.state = response.body.location
+
                     this.uploadedFiles = [...this.uploadedFiles, file]
 
                     console.log("----- on upload success -----");
                 });
 
-                uppy.on("error", (file, error, response) => {
+                this.uppy.on("error", (file, error, response) => {
                     console.log("----- on error -----");
                 });
 
-                uppy.on("upload-error", err => {
+                this.uppy.on("upload-error", err => {
                     console.log("----- on upload error -----");
                 });
             },
