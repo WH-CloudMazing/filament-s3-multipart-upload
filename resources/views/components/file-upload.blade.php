@@ -1,19 +1,88 @@
-<x-forms::field-wrapper
+<link href="https://releases.transloadit.com/uppy/v2.3.0/uppy.min.css" rel="stylesheet">
+
+<script type="module">
+    import { Uppy, AwsS3Multipart, DragDrop, StatusBar } from "https://releases.transloadit.com/uppy/v3.4.0/uppy.min.mjs"
+
+    window.Uppy = Uppy
+    window.AwsS3Multipart = AwsS3Multipart
+    window.DragDrop = DragDrop
+    window.StatusBar = StatusBar
+</script>
+
+<x-dynamic-component
+    :component="$getFieldWrapperView()"
     :id="$getId()"
     :label="$getLabel()"
     :label-sr-only="$isLabelHidden()"
     :helper-text="$getHelperText()"
     :hint="$getHint()"
+    :hint-action="$getHintAction()"
+    :hint-color="$getHintColor()"
     :hint-icon="$getHintIcon()"
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div x-data="uppy" class="uppy">
+    <div
+        x-data="{
+            uppy: null,
+            state: $wire.entangle('{{ $getStatePath() }}').defer,
+            uploadedFiles: [],
+
+            bytesToSize (bytes) {
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+                if (bytes === 0) return 'n/a'
+                const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+                if (i === 0) return `${bytes} ${sizes[i]}`
+                return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`
+            },
+
+            init () {
+                uppy = new window.Uppy({
+                    id: 'uppy',
+                    debug: true,
+                    restrictions: {
+                        maxNumberOfFiles: {{ $getMaxNumberOfFiles() }},
+                        maxFileSize: {{ $getMaxFileSize() }},
+                        minNumberOfFiles: 1
+                    },
+                })
+
+                uppy
+                    .use(window.DragDrop, {
+                        target: '.uppy__input',
+                    })
+                    .use(window.StatusBar, {
+                        target: '.uppy__progress-bar',
+                    })
+                    .use(window.AwsS3Multipart, {
+                        limit: 6,
+                        companionUrl: '{{ $companionUrl() }}',
+                        companionHeaders: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                    })
+
+                uppy.on('file-added', file => {
+                    uppy.upload()
+                    console.log('----- on file added -----');
+                });
+
+                uppy.on('upload-success', (file, response) => {
+                    this.state = response.body.location
+                    this.uploadedFiles = [...this.uploadedFiles, file]
+
+                    console.log('----- on upload success -----');
+                });
+            },
+        }"
+        class="uppy">
+
         <input
             type="hidden"
             name="{{ $getName() }}"
+            {!! $isRequired() ? 'required' : null !!}
+            {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
             x-model="state"
-        {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
         >
 
         <div class="uppy__input">
@@ -41,88 +110,4 @@
             <p>No AWS S3 configuration found.</p>
         @endunless
     </div>
-</x-forms::field-wrapper>
-
-<link href="https://releases.transloadit.com/uppy/v2.3.0/uppy.min.css" rel="stylesheet">
-
-<script type="module">
-    import {Uppy, AwsS3Multipart, DragDrop, StatusBar} from "https://releases.transloadit.com/uppy/v3.4.0/uppy.min.mjs"
-
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('uppy', () => ({
-            uppy: null,
-            state: null,
-            uploadedFiles: [],
-
-            bytesToSize(bytes) {
-                const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
-                if (bytes === 0) return "n/a"
-                const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
-                if (i === 0) return `${bytes} ${sizes[i]}`
-                return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`
-            },
-
-            init() {
-                this.state = this.$wire.entangle('{{ $getStatePath() }}')
-
-                this.uppy = new Uppy({
-                    id: 'uppy',
-                    debug: true,
-                    restrictions: {
-                        maxNumberOfFiles: {{ $getMaxNumberOfFiles() }},
-                        maxFileSize: {{ $getMaxFileSize() }},
-                        minNumberOfFiles: 1
-                    },
-                })
-
-                this.uppy
-                    .use(DragDrop, {
-                        target: '.uppy__input',
-                    })
-                    .use(StatusBar, {
-                        target: '.uppy__progress-bar',
-                    })
-                    .use(AwsS3Multipart, {
-                        limit: 6,
-                        companionUrl: "{{ $companionUrl() }}",
-                        companionHeaders: {
-                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                        },
-                    })
-
-                this.uppy.on("file-added", file => {
-                    uppy.upload()
-                    console.log("----- on file added -----");
-                });
-
-                this.uppy.on("file-removed", file => {
-                    console.log("----- on file removed -----");
-                });
-
-                this.uppy.on("upload", file => {
-                    console.log("----- on upload -----");
-                });
-
-                this.uppy.on("upload-progress", file => {
-                    console.log("----- on file added -----");
-                });
-
-                this.uppy.on("upload-success", (file, response) => {
-                    this.state = response.body.location
-
-                    this.uploadedFiles = [...this.uploadedFiles, file]
-
-                    console.log("----- on upload success -----");
-                });
-
-                this.uppy.on("error", (file, error, response) => {
-                    console.log("----- on error -----");
-                });
-
-                this.uppy.on("upload-error", err => {
-                    console.log("----- on upload error -----");
-                });
-            },
-        }))
-    })
-</script>
+</x-dynamic-component>
