@@ -9,6 +9,74 @@
     window.StatusBar = StatusBar
 </script>
 
+<script>
+    const useUppy = ($wire) => ({
+        uppy: null,
+
+        state: $wire.entangle('{{ $getStatePath() }}').defer,
+
+        uploadedFiles: [],
+
+        bytesToSize (bytes) {
+            const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+            if (bytes === 0) return "n/a"
+            const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+            if (i === 0) return `${bytes} ${sizes[i]}`
+            return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`
+        },
+
+        init () {
+            this.uppy = new Uppy({
+                id: 'uppy',
+                debug: true,
+                restrictions: {
+                    maxNumberOfFiles: {{ $getMaxNumberOfFiles() }},
+                    maxFileSize: {{ $getMaxFileSize() }},
+                    minNumberOfFiles: 1
+                },
+            })
+            this.uppy
+                .use(DragDrop, {
+                    target: '.uppy__input',
+                })
+                .use(StatusBar, {
+                    target: '.uppy__progress-bar',
+                })
+                .use(AwsS3Multipart, {
+                    limit: 6,
+                    companionUrl: "{{ $companionUrl() }}",
+                    companionHeaders: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    },
+                })
+            this.uppy.on("file-added", file => {
+                uppy.upload()
+                console.log("----- on file added -----");
+            });
+            this.uppy.on("file-removed", file => {
+                console.log("----- on file removed -----");
+            });
+            this.uppy.on("upload", file => {
+                console.log("----- on upload -----");
+            });
+            this.uppy.on("upload-progress", file => {
+                console.log("----- on file added -----");
+            });
+            this.uppy.on("upload-success", (file, response) => {
+                this.state = response.body.location
+                this.uploadedFiles = [...this.uploadedFiles, file]
+                console.log("----- on upload success -----");
+            });
+            this.uppy.on("error", (file, error, response) => {
+                console.log("----- on error -----");
+            });
+            this.uppy.on("upload-error", err => {
+                console.log("----- on upload error -----");
+            });
+        },
+    })
+</script>
+
 <x-dynamic-component
     :component="$getFieldWrapperView()"
     :id="$getId()"
@@ -22,58 +90,7 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div
-        x-data="{
-            uppy: null,
-            state: $wire.entangle('{{ $getStatePath() }}').defer,
-            uploadedFiles: [],
-
-            bytesToSize (bytes) {
-                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
-                if (bytes === 0) return 'n/a'
-                const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
-                if (i === 0) return `${bytes} ${sizes[i]}`
-                return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`
-            },
-
-            init () {
-                uppy = new window.Uppy({
-                    id: 'uppy',
-                    debug: true,
-                    restrictions: {
-                        maxNumberOfFiles: {{ $getMaxNumberOfFiles() }},
-                        maxFileSize: {{ $getMaxFileSize() }},
-                        minNumberOfFiles: 1
-                    },
-                })
-
-                uppy
-                    .use(window.DragDrop, {
-                        target: '.uppy__input',
-                    })
-                    .use(window.StatusBar, {
-                        target: '.uppy__progress-bar',
-                    })
-                    .use(window.AwsS3Multipart, {
-                        limit: 6,
-                        companionUrl: '{{ $companionUrl() }}',
-                        companionHeaders: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        },
-                    })
-
-                uppy.on('file-added', file => {
-                    uppy.upload()
-                });
-
-                uppy.on('upload-success', (file, response) => {
-                    this.state = response.body.location
-                    this.uploadedFiles = [...this.uploadedFiles, file]
-                });
-            },
-        }"
-        class="uppy">
-
+    <div x-data="useUppy($wire)" class="uppy">
         <input
             type="hidden"
             name="{{ $getName() }}"
