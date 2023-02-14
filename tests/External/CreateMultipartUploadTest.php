@@ -7,7 +7,7 @@ namespace Tests\External;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 it('creates a multipart upload id', function () {
-    config()->set('filament-s3-multipart-upload.s3.temporary_directory', 'tmp-abc-123');
+    config()->set('filament-s3-multipart-upload.s3.directory', 'tmp-abc-123');
 
     createMultipartUpload([
         'filename' => 'i-am-an-image.jpg',

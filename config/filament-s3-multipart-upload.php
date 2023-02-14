@@ -6,6 +6,6 @@ return [
     'prefix' => '_multipart-upload',
 
     's3' => [
-        'temporary_directory' => 'tmp',
+        'directory' => 'tmp',
     ],
 ];

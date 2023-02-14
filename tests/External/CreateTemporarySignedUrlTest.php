@@ -11,7 +11,7 @@ it('creates a signed url', function () {
     $response = Storage::disk('s3')->getClient()->createMultipartUpload([
         'Bucket' => config('filesystems.disks.s3.bucket'),
         'Key' => urlencode(
-            config('filament-s3-multipart-upload.s3.temporary_directory').'/'.'some-file-name.jpg',
+            config('filament-s3-multipart-upload.s3.directory').'/'.'some-file-name.jpg',
         ),
         'ContentType' => 'image/jpg',
         'ContentDisposition' => 'inline',

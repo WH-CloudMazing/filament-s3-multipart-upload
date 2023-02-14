@@ -26,6 +26,10 @@
         },
 
         init () {
+            if (this.state) {
+                this.uploadedFiles = [{ name: this.state, type: null, size: null }]
+            }
+
             this.uppy = new Uppy({
                 id: 'uppy',
                 debug: true,
@@ -56,8 +60,13 @@
             });
 
             this.uppy.on("upload-success", (file, response) => {
-                this.state = response.body.location
-                this.uploadedFiles = [...this.uploadedFiles, file]
+                this.state = response.body.path
+
+                if ({{ $getMaxNumberOfFiles() }} === 1) {
+                    this.uploadedFiles = [file]
+                } else {
+                    this.uploadedFiles = [...this.uploadedFiles, file]
+                }
             });
         },
     })
@@ -78,7 +87,7 @@
 >
     <div x-data="useUppy($wire)" class="uppy">
         <input
-            type="hidden"
+             type="hidden"
             name="{{ $getName() }}"
             {!! $isRequired() ? 'required' : null !!}
             {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
@@ -92,13 +101,13 @@
         </div>
 
         <div class="uppy__files mt-2">
-            <template x-for="file in uploadedFiles" :key="file.id">
+            <template x-for="file in uploadedFiles" :key="file.name">
                 <div class="uppy__file file py-2 px-4 text-sm bg-white">
                     <div>
                         <span class="file__name font-bold text-sm" x-text="file.name"></span>
                     </div>
 
-                    <div class="file__meta space-x-2 text-xs text-neutral-700">
+                    <div class="file__meta space-x-2 text-xs text-neutral-700" x-show="file.type">
                         <span class="file__size" x-text="bytesToSize(file.size)"></span>
                         <span class="file__type" x-text="file.type"></span>
                     </div>

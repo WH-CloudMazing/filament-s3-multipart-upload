@@ -23,7 +23,7 @@ class MultipartUploadController
     {
         $response = $this->s3->createMultipartUpload([
             'Bucket' => config('filesystems.disks.s3.bucket'),
-            'Key' => urlencode(config('filament-s3-multipart-upload.s3.temporary_directory').'/'.$request->input('filename')),
+            'Key' => urlencode(config('filament-s3-multipart-upload.s3.directory').'/'.$request->input('filename')),
             'ContentType' => $request->input('metadata.type'),
             'ContentDisposition' => 'inline',
         ]);
