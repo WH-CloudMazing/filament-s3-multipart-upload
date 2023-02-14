@@ -64,14 +64,11 @@
 
                 uppy.on('file-added', file => {
                     uppy.upload()
-                    console.log('----- on file added -----');
                 });
 
                 uppy.on('upload-success', (file, response) => {
                     this.state = response.body.location
                     this.uploadedFiles = [...this.uploadedFiles, file]
-
-                    console.log('----- on upload success -----');
                 });
             },
         }"
