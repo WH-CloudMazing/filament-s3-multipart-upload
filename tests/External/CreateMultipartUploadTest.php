@@ -7,8 +7,6 @@ namespace Tests\External;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 it('creates a multipart upload id', function () {
-    config()->set('filament-s3-multipart-upload.s3.directory', 'tmp-abc-123');
-
     createMultipartUpload([
         'filename' => 'i-am-an-image.jpg',
         'metadata' => [
@@ -16,7 +14,7 @@ it('creates a multipart upload id', function () {
         ],
     ])->assertJson(fn (AssertableJson $json) => $json
         ->has('uploadId')
-        ->where('key', urlencode('tmp-abc-123/i-am-an-image.jpg'))
+        ->where('key', 'i-am-an-image.jpg')
         ->etc()
     );
 });

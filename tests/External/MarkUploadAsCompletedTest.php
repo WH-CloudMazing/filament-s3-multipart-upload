@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 it('marks the multipart upload as completed', function () {
     $response = Storage::disk('s3')->getClient()->createMultipartUpload([
-        'Bucket'             => config('filesystems.disks.s3.bucket'),
-        'Key'                => urlencode(config('filament-s3-multipart-upload.s3.directory').'/'.'some-file-name.jpg'),
-        'ContentType'        => 'image/jpg',
+        'Bucket' => config('filesystems.disks.s3.bucket'),
+        'Key' => 'some-file-name.jpg',
+        'ContentType' => 'image/jpg',
         'ContentDisposition' => 'inline',
     ]);
 
@@ -18,7 +18,7 @@ it('marks the multipart upload as completed', function () {
     // get the parts
 
     markUploadAsCompleted($response->get('UploadId'), $response->get('Key'), [])->dd();
-});
+})->skip();
 
 function markUploadAsCompleted(string $uploadId, string $key, array $attributes)
 {

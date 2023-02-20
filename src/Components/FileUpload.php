@@ -16,6 +16,21 @@ class FileUpload extends Field
 
     protected bool $multiple = false;
 
+    protected string $directory = '';
+
+
+    public function directory(string $directory): self
+    {
+        $this->directory = $directory;
+
+        return $this;
+    }
+
+    public function getDirectory(): string
+    {
+        return $this->directory;
+    }
+
     public function hasAwsConfigured(): bool
     {
         return config('filesystems.disks.s3.bucket')

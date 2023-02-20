@@ -38,6 +38,18 @@
                     maxFileSize: {{ $getMaxFileSize() }},
                     minNumberOfFiles: 1
                 },
+                onBeforeUpload: (files) => {
+                    const updatedFiles = {}
+
+                    Object.keys(files).forEach(fileID => {
+                        updatedFiles[fileID] = {
+                            ...files[fileID],
+                            name: `{{ $getDirectory().'/' }}${files[fileID].name}`,
+                        }
+                    })
+
+                    return updatedFiles
+                },
             })
 
             this.uppy
