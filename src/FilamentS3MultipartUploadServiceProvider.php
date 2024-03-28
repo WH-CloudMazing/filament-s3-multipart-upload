@@ -8,12 +8,14 @@ use Aws\S3\S3Client;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadCompletionController;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadController;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\TemporarySignedUrlController;
-use Filament\PluginServiceProvider;
 use Illuminate\Filesystem\FilesystemManager;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FilamentS3MultipartUploadServiceProvider extends PluginServiceProvider
+class FilamentS3MultipartUploadServiceProvider extends PackageServiceProvider
 {
+    public static string $name = 's3-multipart-upload';
+
     public function configurePackage(Package $package): void
     {
         $package

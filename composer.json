@@ -19,14 +19,14 @@
         }
     ],
     "require-dev": {
-        "orchestra/testbench": "^7.22",
+        "orchestra/testbench": "^v8.22.0",
         "laravel/pint": "^1.4",
-        "pestphp/pest": "^1.22",
+        "pestphp/pest": "^2.0",
         "mockery/mockery": "^1.5"
     },
     "require": {
         "php": "^8.1",
-        "filament/filament": "^2.0",
+        "filament/filament": "^3.0",
         "spatie/laravel-package-tools": "^1.14",
         "league/flysystem-aws-s3-v3": "^3.12"
     },
