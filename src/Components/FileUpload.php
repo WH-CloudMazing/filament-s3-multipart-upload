@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CloudMazing\FilamentS3MultipartUpload\Components;
 
+use Closure;
 use Filament\Forms\Components\Field;
 
 class FileUpload extends Field
@@ -18,6 +19,19 @@ class FileUpload extends Field
 
     protected string $directory = '';
 
+    protected Closure|bool $invisible = false;
+
+    public function invisible(Closure|bool $invisible = true): self
+    {
+        $this->invisible = $invisible;
+
+        return $this;
+    }
+
+    public function getInvisible(): bool
+    {
+        return $this->evaluate($this->invisible);
+    }
 
     public function directory(string $directory): self
     {
