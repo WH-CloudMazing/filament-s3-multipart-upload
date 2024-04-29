@@ -8,6 +8,9 @@ use Aws\S3\S3Client;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadCompletionController;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\MultipartUploadController;
 use CloudMazing\FilamentS3MultipartUpload\Http\Controllers\TemporarySignedUrlController;
+use Filament\Support\Assets\AlpineComponent;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Filesystem\FilesystemManager;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -29,6 +32,10 @@ class FilamentS3MultipartUploadServiceProvider extends PackageServiceProvider
     public function boot(): void
     {
         parent::boot();
+
+        FilamentAsset::register([
+            AlpineComponent::make('uppy', __DIR__ . '/../resources/js/dist/components/uppy.js'),
+        ], 'cloudmazing/filament-s3-multipart-upload');
 
         $this->app
             ->when(MultipartUploadController::class)

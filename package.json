@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.20.2"
+  },
+  "dependencies": {
+    "@uppy/aws-s3": "^3.6.2",
+    "@uppy/aws-s3-multipart": "^3.11.0",
+    "@uppy/companion": "^4.13.1",
+    "@uppy/core": "^3.10.1",
+    "@uppy/drag-drop": "^3.1.0",
+    "@uppy/status-bar": "^3.3.1"
+  }
+}
