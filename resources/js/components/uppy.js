@@ -41,7 +41,7 @@ export default function uppy({state, maxFiles, maxSize, directory, companionUrl,
                     Object.keys(files).forEach(fileID => {
                         updatedFiles[fileID] = {
                             ...files[fileID],
-                            name: `{{ ${directory}.'/' }}${files[fileID].name}`,
+                            name: `${directory}/${files[fileID].name}`,
                         }
                     })
 
