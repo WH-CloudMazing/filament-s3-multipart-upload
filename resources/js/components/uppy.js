@@ -65,7 +65,7 @@ export default function uppy({state, maxFiles, maxSize, directory, companionUrl,
                 })
 
             this.uppy.on("file-added", file => {
-                uppy.upload()
+                uppy.upload && uppy.upload()
             });
 
             this.uppy.on("upload-success", (file, response) => {
