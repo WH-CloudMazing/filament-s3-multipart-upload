@@ -28,8 +28,8 @@
                 x-ignore
                 ax-load
                 ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('uppy', 'cloudmazing/filament-s3-multipart-upload') }}"
-                x-data="useUppy({
-                    state: $wire.entangle('{{ $getStatePath() }}').defer,
+                x-data="uppy({
+                    state: $wire.entangle('{{ $getStatePath() }}'),
                     maxFiles: {{ $getMaxNumberOfFiles() }},
                     maxSize: {{ $getMaxFileSize() }},
                     directory: '{{ $getDirectory() }}',
@@ -38,13 +38,6 @@
                 })"
                 wire:key="{{ $id }}"
         >
-            <input
-                 type="hidden"
-                name="{{ $getName() }}"
-                {!! $isRequired() ? 'required' : null !!}
-                {{ $applyStateBindingModifiers('wire:model') }}="{{ $getStatePath() }}"
-                x-model="state"
-            >
 
             <div class="uppy__input">
             </div>
@@ -54,7 +47,7 @@
 
             <div class="uppy__files mt-2">
                 <template x-for="file in uploadedFiles" :key="file.name">
-                    <div class="uppy__file file py-2 px-4 text-sm bg-white">
+                    <div class="uppy__file file py-2 px-4 text-sm text-white">
                         <div>
                             <span class="file__name font-bold text-sm" x-text="file.name"></span>
                         </div>
