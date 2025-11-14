@@ -19,7 +19,7 @@
         }
     ],
     "require-dev": {
-        "orchestra/testbench": "^v8.22.0",
+        "orchestra/testbench": "^v9.14.0",
         "laravel/pint": "^1.4",
         "pestphp/pest": "^2.0",
         "mockery/mockery": "^1.5"
