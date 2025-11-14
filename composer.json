@@ -26,7 +26,7 @@
     },
     "require": {
         "php": "^8.1",
-        "filament/filament": "^3.0",
+        "filament/filament": "^4.0",
         "spatie/laravel-package-tools": "^1.14",
         "league/flysystem-aws-s3-v3": "^3.12"
     },
