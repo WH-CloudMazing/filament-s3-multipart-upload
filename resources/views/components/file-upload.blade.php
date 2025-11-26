@@ -26,8 +26,8 @@
         <div
                 class="uppy"
                 x-ignore
-                ax-load
-                ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('uppy', 'cloudmazing/filament-s3-multipart-upload') }}"
+                x-load
+                x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('uppy', 'cloudmazing/filament-s3-multipart-upload') }}"
                 x-data="uppy({
                     state: $wire.entangle('{{ $getStatePath() }}'),
                     maxFiles: {{ $getMaxNumberOfFiles() }},
