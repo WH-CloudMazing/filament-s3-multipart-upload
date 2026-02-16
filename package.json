@@ -4,11 +4,11 @@
     "esbuild": "^0.27.3"
   },
   "dependencies": {
-    "@uppy/aws-s3": "^3.6.2",
-    "@uppy/aws-s3-multipart": "^3.11.0",
+    "@uppy/aws-s3": "^5.1.0",
+    "@uppy/aws-s3-multipart": "^4.1.2",
     "@uppy/companion": "^6.2.1",
-    "@uppy/core": "^3.10.1",
-    "@uppy/drag-drop": "^3.1.0",
-    "@uppy/status-bar": "^3.3.1"
+    "@uppy/core": "^5.2.0",
+    "@uppy/drag-drop": "^5.1.0",
+    "@uppy/status-bar": "^5.1.0"
   }
 }
