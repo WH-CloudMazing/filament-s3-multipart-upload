@@ -4,7 +4,7 @@
     "esbuild": "^0.28.2"
   },
   "dependencies": {
-    "@uppy/aws-s3": "^5.1.0",
+    "@uppy/aws-s3": "^6.0.0",
     "@uppy/aws-s3-multipart": "^4.1.2",
     "@uppy/companion": "^6.2.2",
     "@uppy/core": "^5.2.0",
