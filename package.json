@@ -9,6 +9,6 @@
     "@uppy/companion": "^6.2.2",
     "@uppy/core": "^5.2.0",
     "@uppy/drag-drop": "^5.1.0",
-    "@uppy/status-bar": "^5.1.0"
+    "@uppy/status-bar": "^6.0.0"
   }
 }
