@@ -1,5 +1,6 @@
 {
     "name": "cloudmazing/filament-s3-multipart-upload",
+    "abandoned": true,
     "type": "library",
     "license": "MIT",
     "autoload": {
